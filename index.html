@@ -46,7 +46,7 @@
             <div class="small-12 columns">
                 <ul>
                     <li v-for="(turn,i) in turns">
-                        <div class="player-turn" v-if="i % 2 === 0" >PLAYER {{ turn < 0 ? "HITS MONSTER FOR " + (-turn): "HEALS HIMSELF FOR " + (turn)}}</div>
+                        <div class="player-turn" v-if="i % 2 !== 0" >PLAYER {{ turn < 0 ? "HITS MONSTER FOR " + (-turn): "HEALS HIMSELF FOR " + (turn)}}</div>
                         <div class="monster-turn" v-else>MONSTER {{ turn < 0 ? "HITS PLAYER FOR " : "HEALS HIMSELF FOR "}} {{ -turn }}</div>                      
                     </li>
                 </ul>

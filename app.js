@@ -46,7 +46,7 @@ new Vue({
             if (this.life.user > 100) {
                 this.life.user = 100;
             }
-            this.turns.push(heal);
+            this.turns.unshift(heal);
             this.monsterAttacks();
         },
         giveUp: function () {
@@ -61,7 +61,7 @@ new Vue({
         },
         calculateDamage: function (min, max) {
             var damage = Math.floor((Math.random() * max) + min);
-            this.turns.push(-damage);
+            this.turns.unshift(-damage);
             return damage;
         },
         checkWin: function () {
