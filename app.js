@@ -13,28 +13,72 @@ new Vue({
         turns: []
     },
     computed: {
-        lifeUser: function () {
+        lifeUser: function() {
             return this.user.width = this.life.user;
         }
     },
     methods: {
-        newGame: function () {
+        newGame: function() {
             this.life.user = 100;
             this.life.monster = 100;
             this.gameIsRunning = true;
+            this.turns = [];
         },
-        attack: function () {
-            var damage = 0;
+        attack: function() {            
             //value damaged by the user
-            damage = Math.floor((Math.random() * 15) + 1);
-            this.life.monster = this.life.monster - damage;
-            this.attacks.user.push(damage);
-            this.turns.push(-damage);
+            this.life.monster = this.life.monster - this.calculateDamage(1, 15);
+            if (this.checkWin()) {
+                return;
+            }
+            this.monsterAttacks();
+        },
+        specialAttack: function () {
+            //value damaged by the user
+            this.life.monster = this.life.monster - this.calculateDamage(5, 20);
+            if (this.checkWin()) {
+                return;
+            }
+            this.monsterAttacks();
+        },
+        heal: function () {
+            var heal = Math.floor((Math.random() * 15) + 1);
+            this.life.user = this.life.user + heal;
+            this.turns.push(heal);
+            this.monsterAttacks();
+        },
+        giveUp: function () {
+
+        },
+        monsterAttacks: function () {
             //value damaged by the monster
-            damage = Math.floor((Math.random() * 15) + 1);
-            this.life.user = this.life.user - damage;
-            this.attacks.monster.push(damage);
+            this.life.user = this.life.user - this.calculateDamage(1, 15);
+            this.checkWin();
+        },
+        calculateDamage: function (min, max) {
+            var damage = Math.floor((Math.random() * max) + min);
             this.turns.push(-damage);
+            return damage;
+        },
+        checkWin: function () {
+            if (this.life.monster <= 0) {
+                if (confirm('You won! New game?')) {
+                    this.newGame();
+                } else {
+                    this.gameIsRunning = false;
+                    this.life.monster = 0;
+                }
+                return true;
+            } else if (this.life.user <= 0) {
+                if (confirm('You lost! New game?')) {
+                    this.newGame();
+                } else {
+                    this.gameIsRunning = false;
+                    this.life.user = 0;
+                }
+                return true;
+            }
+            return false;
         }
+
     }
 });
