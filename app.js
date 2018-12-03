@@ -43,11 +43,16 @@ new Vue({
         heal: function () {
             var heal = Math.floor((Math.random() * 15) + 1);
             this.life.user = this.life.user + heal;
+            if (this.life.user > 100) {
+                this.life.user = 100;
+            }
             this.turns.push(heal);
             this.monsterAttacks();
         },
         giveUp: function () {
-
+            if (confirm('Do you really want to give up this game?')) {
+                this.gameIsRunning = false;
+            }
         },
         monsterAttacks: function () {
             //value damaged by the monster
