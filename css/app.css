@@ -9,14 +9,14 @@
     margin: auto;
     transition: width 500ms;
 }
-
+/*
 .healthbar .user{
     width: 100%;
 }
 .healthbar .monster {
     width: 100%;
 }
-
+*/
 .controls, .log {
     margin-top: 30px;
     text-align: center;

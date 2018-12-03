@@ -12,7 +12,7 @@
         <div class="small-6 columns">
             <h1 class="text-center">YOU</h1>
             <div class="healthbar">
-                <div class="healthbar user text-center" :class="" style="background-color: green; margin: 0; color: white;">
+                <div class="healthbar user text-center" :style="{width: life.user + '%'}" style="background-color: green; margin: 0; color: white;">
                     {{ life.user }}
                 </div>
             </div>
@@ -20,7 +20,7 @@
         <div class="small-6 columns">
             <h1 class="text-center">MONSTER</h1>
             <div class="healthbar">
-                <div class="healthbar monster text-center" style="background-color: green; margin: 0; color: white;">
+                <div class="healthbar monster text-center" :style="{width: life.monster + '%'}" style="background-color: green; margin: 0; color: white;">
                     {{ life.monster }}
                 </div>
             </div>
@@ -45,7 +45,9 @@
         <section class="row log">
             <div class="small-12 columns">
                 <ul>
-                    <li>
+                    <li v-for="(turn,i) in turns">
+                        <div class="player-turn" v-if="i % 2 === 0" >PLAYER {{ turn < 0 ? "HITS MONSTER FOR" : "HEALS HIMSELF FOR"}} {{ -turn }}</div>
+                        <div class="monster-turn" v-else>MONSTER {{ turn < 0 ? "HITS PLAYER FOR" : "HEALS HIMSELF FOR"}} {{ -turn }}</div>                      
                     </li>
                 </ul>
             </div>
